@@ -1,0 +1,9 @@
+# Kept on this computer, but not published with the site:
+# trial pages and experiments
+explore/
+# old experiment, not used by the site
+glass.js
+# the old "blue landing" wall (a copy is in ../archive)
+leaf-shadows.js
+# Mac folder settings
+.DS_Store

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Case study</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c1c17'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23fbfbf9' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts load in the background so the page never waits for them -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css">
+  <!-- The site colour (buttons, highlights and the landing wall) -->
+  <script src="theme.js"></script>
+</head>
+<body class="case-page">
+  <!-- Reading progress line along the top -->
+  <div class="read-progress" aria-hidden="true"><span id="read-progress"></span></div>
+
+  <!-- Everything below is filled in by case.js from content.js -->
+  <div class="case-layout">
+    <aside class="case-nav" aria-label="Sections">
+      <a class="case-nav__back" id="back" href="index.html#work"></a>
+      <p class="case-nav__label" id="sections-label"></p>
+      <ol class="case-nav__list" id="section-links"></ol>
+    </aside>
+
+    <main class="case">
+      <a class="case__back" id="back-mobile" href="index.html#work"></a>
+      <header class="case__header">
+        <h1 class="case__title" id="title"></h1>
+        <ul class="project__tags" id="tags"></ul>
+        <p class="case__client" id="client"></p>
+      </header>
+      <div id="hero"></div>
+      <div id="sections"></div>
+      <a class="case__next" id="next"></a>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <h2 class="footer__heading">
+      <span id="footer-heading"></span>
+      <em id="footer-heading-italic"></em>
+    </h2>
+    <a class="footer__email" id="footer-email"></a>
+    <ul class="footer__links" id="footer-links"></ul>
+    <p class="footer__copy" id="footer-copy"></p>
+  </footer>
+
+  <!-- Floating nav bar (same as the home page) -->
+  <nav class="nav" aria-label="Main"></nav>   <!-- built by nav.js -->
+
+  <script src="content.js"></script>
+  <script src="nav.js"></script>
+  <script src="case.js"></script>
+</body>
+</html>

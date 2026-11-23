@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalpesh — Product Designer</title>
+  <meta name="description" content="Product designer who designs products that go live.">
+  <meta property="og:title" content="Kalpesh — Product Designer">
+  <meta property="og:description" content="Product designer who designs products that go live.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c1c17'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23fbfbf9' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts: EB Garamond (headings) + Montserrat (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts load in the background so the page never waits for them -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&family=Courier+Prime&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&family=Courier+Prime&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&family=Courier+Prime&display=swap"></noscript>
+
+  <link rel="stylesheet" href="styles.css?v=17">
+  <!-- The site colour (buttons, highlights and the landing wall) -->
+  <script src="theme.js?v=17"></script>
+  <!-- Turn on scroll motion unless the visitor asked their device for less motion -->
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion-ok");</script>
+</head>
+<body>
+
+  <!-- Landing: a pixel sky behind the greeting, headline, and the three ideas on highlighter strokes (point at one for its line).
+       The Contact and Resume buttons fly down into the bottom bar as you scroll (main.js). -->
+  <section class="landing" id="home">
+    <!-- Pixel sky: dithered blue clouds around the edges (main.js) -->
+    <canvas class="landing__sky" id="landing-sky" aria-hidden="true"></canvas>
+    <div class="landing__in">
+      <p class="landing__greeting" data-content="landing.greeting"></p>
+      <h1 class="landing__headline" id="landing-headline"></h1>
+      <p class="landing__pillars" id="landing-pillars"></p>
+      <p class="landing__more" id="landing-more" aria-live="polite"></p>
+      <div class="landing__ctas" id="landing-ctas"></div>
+    </div>
+  </section>
+
+  <!-- About: the text steps through on scroll while the polaroids glide past in a depth carousel (main.js) -->
+  <section class="about" id="about">
+    <div class="about__stage">
+      <h2 class="section-heading" data-content="about.heading"></h2>
+      <p class="about__text" data-content="about.text"></p>
+      <div class="about__steps" id="about-steps" aria-live="polite"></div>
+      <div class="about__dots" id="about-dots" aria-hidden="true"></div>
+      <div class="carousel" id="polaroids" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Logo strip -->
+  <section class="logos" aria-label="Clients">
+    <p class="logos__heading" data-reveal data-content="logos.heading"></p>
+    <div class="logos__track-wrap" data-reveal style="--d:1">
+      <div class="logos__track" id="logo-track"></div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="work" id="work">
+    <div class="work__stage">
+      <h2 class="section-heading" data-content="work.heading"></h2>
+      <div class="work__layout">
+        <ol class="work__list" id="work-list"></ol>
+        <div class="work__media" id="work-media" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <h2 class="footer__heading">
+      <span data-reveal data-content="footer.heading"></span>
+      <em data-reveal style="--d:1" data-content="footer.headingItalic"></em>
+    </h2>
+    <!-- Typewriter contact form (typewriter.js). Email, LinkedIn and Resume are in the
+         bottom bar, which opens up with labels when you reach this footer (nav.js) -->
+    <div class="typewriter" id="typewriter"></div>
+    <!-- Sits on the same line as the bottom bar, at the left and right edges -->
+    <div class="footer__credits">
+      <p class="footer__copy" data-content="footer.copyright"></p>
+      <p class="footer__made" id="footer-made"></p>
+    </div>
+  </footer>
+
+  <!-- Floating nav bar -->
+  <nav class="nav" aria-label="Main"></nav>   <!-- built by nav.js -->
+
+  <script src="content.js?v=17"></script>
+  <script src="nav.js?v=17"></script>
+  <script src="main.js?v=17"></script>
+  <script src="typewriter.js?v=17"></script>
+</body>
+</html>

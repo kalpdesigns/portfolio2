@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume · Kalpesh Bhavsar</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<style>
+  /* A file preview in the style of Google Drive: dark backdrop, file bar on top,
+     big pages that scroll, page thumbnails down the side, and zoom at the bottom. */
+  :root { --zoom: 1; --accent: #2f55d4; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { display: grid; grid-template-columns: 172px 1fr; grid-template-rows: auto minmax(0, 1fr); background: #262624; color: #f1f0ec; font: 400 14px/1.4 Montserrat, system-ui, sans-serif; }
+  .top { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 10px 14px 10px 18px; background: linear-gradient(#1b1b1a, #222220); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+  .file { display: inline-flex; align-items: center; gap: 12px; min-width: 0; font-weight: 500; }
+  .file__ico { flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 4px; background: #ea4335; color: #fff; font: 700 8px/1 Montserrat, sans-serif; letter-spacing: .03em; }
+  .file__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tools { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: inherit; font: 500 13px/1 Montserrat, sans-serif; text-decoration: none; cursor: pointer; }
+  .btn:hover { background: rgba(255,255,255,.1); }
+  .btn--icon { width: 38px; padding: 0; justify-content: center; }
+  .btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .thumbs { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 18px 0 24px; overflow-y: auto; }
+  .thumb { display: grid; justify-items: center; gap: 7px; padding: 0; border: 0; background: none; color: rgba(241,240,236,.7); font: 500 11px/1 Montserrat, sans-serif; cursor: pointer; }
+  .thumb img { width: 108px; border-radius: 2px; outline: 3px solid transparent; outline-offset: 3px; transition: outline-color .2s ease; }
+  .thumb.is-on img { outline-color: #8ab4f8; }
+  .thumb:hover img { outline-color: rgba(255,255,255,.35); }
+  .scroll { position: relative; overflow: auto; padding: 22px 24px 96px; }
+  .pages { display: grid; justify-items: center; gap: 22px; }
+  .page { display: block; width: calc(min(1000px, 100%) * var(--zoom)); max-width: none; height: auto; background: #fff; border-radius: 2px; box-shadow: 0 2px 8px rgba(0,0,0,.35), 0 30px 60px -24px rgba(0,0,0,.6); }
+  /* the floating page counter and zoom, like Drive */
+  .zoombar { position: fixed; left: 50%; bottom: 22px; transform: translateX(calc(-50% + 86px)); display: inline-flex; align-items: center; gap: 2px; padding: 4px 6px; border-radius: 999px; background: rgba(20,20,19,.92); box-shadow: 0 6px 20px rgba(0,0,0,.4); font: 500 12px/1 Montserrat, sans-serif; }
+  .zoombar span { padding: 0 10px; color: rgba(241,240,236,.8); }
+  .zoombar i { width: 1px; height: 18px; background: rgba(255,255,255,.15); }
+  @media (max-width: 900px) {
+    body { grid-template-columns: 1fr; }
+    .thumbs, .btn__label { display: none; }
+    .scroll { padding: 12px 10px 90px; }
+    .zoombar { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="file"><span class="file__ico" aria-hidden="true">PDF</span><span class="file__name" id="name">Resume</span></span>
+  <span class="tools">
+    <a class="btn" id="dl" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 20h14"/></svg><span class="btn__label">Download</span></a>
+    <button class="btn btn--icon" id="print" type="button" aria-label="Print"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg></button>
+    <a class="btn" id="pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="btn__label">Open PDF (with links)</span></a>
+    <a class="btn" href="index.html"><span class="btn__label">Back to portfolio</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </span>
+</header>
+<nav class="thumbs" id="thumbs" aria-label="Pages"></nav>
+<main class="scroll" id="scroll"><div class="pages" id="pages"></div></main>
+<div class="zoombar" role="group" aria-label="Zoom">
+  <span id="count">Page 1 / 1</span><i></i>
+  <button class="btn btn--icon" id="out" type="button" aria-label="Zoom out"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+  <button class="btn btn--icon" id="in" type="button" aria-label="Zoom in"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<script src="content.js"></script>
+<script>
+(function () {
+  const N = (window.CONTENT && CONTENT.nav) || {};
+  const pdf = N.resumeFile || "#", pages = N.resumePages || [];
+  const name = decodeURIComponent(pdf.split("/").pop());
+  document.getElementById("name").textContent = name;
+  const dl = document.getElementById("dl"); dl.href = pdf; dl.download = name;
+  document.getElementById("pdf").href = pdf;
+  document.getElementById("print").addEventListener("click", () => print());
+  const holder = document.getElementById("pages"), thumbs = document.getElementById("thumbs"), scroll = document.getElementById("scroll"), count = document.getElementById("count");
+  if (pages.length) {
+    holder.innerHTML = pages.map((src, i) => `<img class="page" id="p${i + 1}" src="${src}" alt="${name}, page ${i + 1}">`).join("");
+    thumbs.innerHTML = pages.map((src, i) => `<button class="thumb${i ? "" : " is-on"}" type="button" data-p="${i + 1}" aria-label="Page ${i + 1}"><img src="${src}" alt=""><span>${i + 1}</span></button>`).join("");
+  } else {
+    // no page pictures yet: show the PDF itself
+    holder.innerHTML = `<iframe class="page" src="${pdf}#view=FitH" title="${name}" style="aspect-ratio:1/1.414;border:0"></iframe>`;
+  }
+  thumbs.querySelectorAll(".thumb").forEach((t) => t.addEventListener("click", () => {
+    scroll.scrollTo({ top: document.getElementById("p" + t.dataset.p).offsetTop - 20, behavior: "smooth" });
+  }));
+  const total = Math.max(1, pages.length);
+  const onScroll = () => {
+    let on = 1;
+    holder.querySelectorAll(".page").forEach((p, i) => { if (p.offsetTop - scroll.scrollTop < scroll.clientHeight / 2) on = i + 1; });
+    count.textContent = `Page ${on} / ${total}`;
+    thumbs.querySelectorAll(".thumb").forEach((t) => t.classList.toggle("is-on", +t.dataset.p === on));
+  };
+  scroll.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  let zoom = 1;
+  const setZoom = (z) => { zoom = Math.min(2, Math.max(0.6, Math.round(z * 10) / 10)); document.documentElement.style.setProperty("--zoom", zoom); };
+  document.getElementById("in").addEventListener("click", () => setZoom(zoom + 0.2));
+  document.getElementById("out").addEventListener("click", () => setZoom(zoom - 0.2));
+})();
+</script>
+</body>
+</html>
