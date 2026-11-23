@@ -434,7 +434,7 @@
     stepEls.forEach((s, i) => { s.classList.toggle("is-on", i === n); s.classList.toggle("is-past", i < n); });
     dotEls.forEach((d, i) => d.classList.toggle("is-on", i <= n));
   }
-  const DRIFT = 0.12;           // cards per second when left alone
+  const DRIFT = 0.2;            // cards per second when left alone
   const SCRUB = 4;              // cards the carousel travels across the whole section
   let drift = 0, aboutVisible = false, aboutFrame = null, lastTime = 0;
 
@@ -452,7 +452,8 @@
       if (d > n / 2) d -= n;
       if (d < -n / 2) d += n;
       const a = Math.abs(d), sgn = Math.sign(d);
-      const x = sgn * (Math.min(a, 1) * 415 + Math.max(0, a - 1) * 289) * k;
+      // spaced out a little more than the reference, so the prints have room
+      const x = sgn * (Math.min(a, 1) * 520 + Math.max(0, a - 1) * 360) * k;
       const z = -200 * a * k;
       const rot = sgn * Math.min(a * 35, 90);
       // the ones wrapping round from one end to the other fade out on the way

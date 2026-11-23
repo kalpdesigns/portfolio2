@@ -42,6 +42,20 @@
     item("nav__item--resume", { href: resume, extra: `target="_blank" rel="noopener" aria-label="${C.nav.resume} (opens in a new tab and downloads)"` }, ICONS.resume, C.nav.resume, { text: C.nav.resume }) +
     (linkedin ? item("nav__item--extra", { href: linkedin, extra: 'target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)"' }, ICONS.linkedin, "LinkedIn", { text: "LinkedIn" }) : "");
 
+  /* ---------- Links to parts of the page scroll there without changing the address ----------
+     (so a copied link always opens at the top, not halfway down the page) */
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const id = a.getAttribute("href").slice(1);
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  });
+  // arriving from a case study (index.html#work): the browser scrolls there; then the #work is taken out of the address
+  if (location.hash && !onCase) addEventListener("load", () => setTimeout(() => history.replaceState(null, "", location.pathname + location.search), 50));
+
   /* ---------- A blue pill glides to the button you point at ---------- */
   const pill = document.createElement("span");
   pill.className = "nav__pill";

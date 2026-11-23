@@ -67,7 +67,7 @@ window.CONTENT = {
 
   /* ---------- Work section ---------- */
   work: {
-    heading: "Work",
+    heading: "Featured",
     viewLabel: "View case study",
     projects: [
       {
