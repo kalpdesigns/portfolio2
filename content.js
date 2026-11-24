@@ -80,7 +80,7 @@ window.CONTENT = {
           { value: "3 weeks", label: "From design to launch" },
           { value: "5", label: "Publications covered it" }
         ],
-        image: ""
+        image: "images/IAF-preview.jpg"
       },
       {
         id: "edtech-ecosystem",
@@ -402,7 +402,7 @@ window.CONTENT = {
             nav: "Introduction",
             blocks: [
               { type: "heading", text: "What is Fyule Admin Dashboard" },
-              { type: "text", text: "Every app students use in the Fyule ecosystem is managed from the admin dashboard. It is used by administrators from Fyuele team and school representatives to manage users, assign content, track progress, and manage what students can access." },
+              { type: "text", text: "Every app students use in the Fyule ecosystem is managed from the admin dashboard. It is used by administrators from the Fyule team and school representatives to manage users, assign content, track progress, and manage what students can access." },
               { type: "text", text: "I designed the admin dashboard as part of the broader Fyule ecosystem, alongside the three student-facing apps." },
               { type: "callout", title: "Note", text: "This dashboard is an internal product, hence specific details of the project are not disclosed here. This case study focuses on approach to design with representative visuals to maintain confidentiality." }
             ]
@@ -479,7 +479,7 @@ window.CONTENT = {
               { type: "heading", text: "Reflection" },
               { type: "text", text: "Designing a dashboard is a specific discipline in itself with the goal to make it effective without overwhelming." },
               { type: "text", text: "The most useful constraint on this project was designing within an existing system. Having worked with the cross-functional stakeholders allowed me to design for an array of users." },
-              { type: "text", text: "If I were doing it again, I'd involve at least one teacher in the discovery phase as a research participan, because the people who understand the workflow best are the ones using it daily." }
+              { type: "text", text: "If I were doing it again, I'd involve at least one teacher in the discovery phase as a research participant, because the people who understand the workflow best are the ones using it daily." }
             ]
           }
         ]

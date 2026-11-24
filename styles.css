@@ -191,7 +191,7 @@ p { margin: 0; }
   height: 100svh;
   min-height: 640px;
   /* like the Work section: content starts near the top, and the bottom is kept clear for the bar */
-  padding: clamp(40px, 7vh, 80px) var(--gutter) calc(88px + env(safe-area-inset-bottom, 0px));
+  padding: clamp(20px, 3vh, 40px) var(--gutter) calc(88px + env(safe-area-inset-bottom, 0px));   /* same top spacing as Featured */
   overflow: hidden;
 }
 .about .section-heading { margin: 0; }
