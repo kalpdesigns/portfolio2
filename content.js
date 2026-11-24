@@ -19,7 +19,8 @@ window.CONTENT = {
   landing: {
     greeting: "Hello, I'm Kalpesh",
     // Words between *stars* are set in italics
-    headline: "A product designer who turns complex problems into products that *go live.*",
+    // A new line in the text (\n) starts a new line on screen
+    headline: "A product designer\nwho turns complex problems\ninto products that *ship.*",
     // The three ideas under the headline. Each sits on a highlighter stroke; pointing at one shows its line.
     pillars: [
       { text: "Context first", more: "Who it's for, where it lives, what's at stake; before any screen.", color: "#ffe066" },
@@ -46,7 +47,7 @@ window.CONTENT = {
   about: {
     heading: "Who is Kalpesh?",
     // Shown first; then each scroll brings in the next item below it
-    text: "Kalpesh is a designer who designs products, and occasionally things that are harder to categorize, like",
+    text: "Kalpesh is a designer who designs products,\nand occasionally things that are harder to categorize, like",
     steps: [
       "an AR app that brought a 430‑ft facade to life at India Art Fair 2026",
       "an ecosystem of EdTech video & LMS apps",
@@ -76,11 +77,10 @@ window.CONTENT = {
         title: "Designed an AR app for India Art Fair 2026",
         description: "I designed an AR app bringing a 430 ft facade to life. Bespoke visual style as an extension of the artwork. Live on iOS and Android.",
         metrics: [
-          { value: "430 ft", label: "Facade brought to life" },
           { value: "3 weeks", label: "From design to launch" },
-          { value: "5", label: "Publications covered it" }
+          { value: "430 ft", label: "Facade brought to life" }
         ],
-        image: "images/IAF-preview.jpg"
+        image: "images/IAF-thumb.jpg"
       },
       {
         id: "edtech-ecosystem",
@@ -88,11 +88,10 @@ window.CONTENT = {
         title: "Designed an EdTech ecosystem of 3 apps for video-based learning",
         description: "I led UX UI design for a suite of 3 gamified video-creation apps for K-12 students, built on one shared design system. Live on iOS, Android and web.",
         metrics: [
-          { value: "40,000+", label: "Downloads across the apps" },
-          { value: "4.5+", label: "Star rating on app stores" },
-          { value: "3", label: "Apps launched" }
+          { value: "40,000+", label: "Downloads" },
+          { value: "4.5+", label: "Star rating" }
         ],
-        image: "images/FVL-hero.jpg"
+        image: "images/FVL-thumb.jpg"
       },
       {
         id: "admin-dashboard",
@@ -100,11 +99,10 @@ window.CONTENT = {
         title: "Designed an admin dashboard to create & manage users & content",
         description: "I designed the role-based control centre for the Fyule ecosystem, letting admins and schools manage users, content and events without any training.",
         metrics: [
-          { value: "3", label: "User roles served" },
-          { value: "6", label: "Admin modules designed" },
-          { value: "3", label: "Apps managed in one place" }
+          { value: "300+", label: "Schools managed" },
+          { value: "3", label: "Apps administered" }
         ],
-        image: ""
+        image: "images/FAD-thumb.jpg"
       }
     ]
   },
@@ -396,7 +394,7 @@ window.CONTENT = {
         title: "Admin Dashboard *For* User & Content Management",
         tags: ["Dashboard", "Web app", "UX UI design", "Design system", "Information design"],
         client: "Fyule Video Lab w/ Crossed Design",
-        heroImage: "",   // e.g. "images/dashboard-hero.jpg"
+        heroImage: "images/FAD-hero.jpg",
         sections: [
           {
             nav: "Introduction",
@@ -428,7 +426,7 @@ window.CONTENT = {
             nav: "Preview",
             blocks: [
               { type: "note", text: "Here's what the dashboard looked like" },
-              { type: "video", youtube: "tqzosJIFiz8" }
+              { type: "video", youtube: "tqzosJIFiz8", autoplay: true }
             ]
           },
           {
@@ -443,27 +441,27 @@ window.CONTENT = {
               {
                 type: "tiles",
                 items: [
-                  { label: "Manage admins roles & access", icon: "" },
-                  { label: "Administer users & content", icon: "" },
-                  { label: "Manage LMS & learning content", icon: "" },
-                  { label: "Create, manage & publish events & contests", icon: "" },
-                  { label: "Schedule & manage online cohorts & masterclasses", icon: "" },
-                  { label: "Push announcements, notifications & updates", icon: "" }
+                  { label: "Manage admins roles & access", icon: "images/icons/fad-admins.svg" },
+                  { label: "Administer users & content", icon: "images/icons/fad-users.svg" },
+                  { label: "Manage LMS & learning content", icon: "images/icons/fad-lms.svg" },
+                  { label: "Create, manage & publish events & contests", icon: "images/icons/fad-events.svg" },
+                  { label: "Schedule & manage online cohorts & masterclasses", icon: "images/icons/fad-cohorts.svg" },
+                  { label: "Push announcements, notifications & updates", icon: "images/icons/fad-announce.svg" }
                 ]
               },
               { type: "heading", text: "Information architecture" },
               { type: "text", text: "The IA was structured around these three tasks putting priority needs to the front making it effective for different user groups." },
               { type: "text", text: "Primary navigation covered three areas: Users, Content, and Activity. Everything else including settings, account management, support was secondary navigation." },
-              { type: "image", image: "", caption: "" },   // e.g. "images/dashboard-ia.jpg"
+              { type: "carousel", images: ["images/FAD-ia-a.jpg", "images/FAD-ia-b.jpg", "images/FAD-ia-c.jpg"] },
               { type: "heading", text: "Designing for role based access" },
               { type: "text", text: "The dashboard served multiple user types with different levels of access:" },
               { type: "list", items: ["Master admin with full access", "Co-admins with specialized access", "School admins with school facing access"] },
               { type: "text", text: "Role-based design meant the same interface needed to surface different information depending on who was logged in, without creating confusion when a user's scope changed or when they needed to understand what they couldn't access and why." },
-              { type: "image", image: "", caption: "" },   // e.g. "images/dashboard-roles.jpg"
+              { type: "image", image: "images/FAD-roles.jpg", caption: "" },
               { type: "text", text: "The dashboard shared the Fyule design system's colour tokens, typography, and component library ensuring visual consistency across the entire ecosystem. But the application was different." },
               { type: "text", text: "Where the student apps were playful and high-contrast, the dashboard was calm and information-dense. The same system, applied with restraint. Tables, filters, and status indicators replaced animations and reward mechanics." },
-              { type: "callout", title: "Note", text: "Detailed screen designs are partially confidential. The GIFs below show the interaction patterns and key flows." },
-              { type: "image", image: "", caption: "" }    // e.g. "images/dashboard-flows.gif"
+              { type: "callout", title: "Note", text: "Detailed screen designs are partially confidential. The screens below show the key flows." },
+              { type: "carousel", images: ["images/FAD-screen-1.jpg", "images/FAD-screen-2.jpg", "images/FAD-screen-3.jpg", "images/FAD-screen-4.jpg", "images/FAD-screen-5.jpg"] }
             ]
           },
           {

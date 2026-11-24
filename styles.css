@@ -81,6 +81,7 @@ p { margin: 0; }
 .landing__greeting { margin: 0 0 18px; font: 400 clamp(18px, 1.8vw, 22px)/1.2 var(--font-head); color: var(--ink-soft); }
 .landing__headline { margin: 0; font: 400 clamp(34px, 4.7vw, 64px)/1.08 var(--font-head); letter-spacing: -.015em; text-wrap: balance; }
 .landing__headline em { font-style: italic; }
+.landing__line { display: block; }
 /* the three ideas, each on a highlighter stroke with room around it */
 .landing__pillars { margin: 40px 0 0; font: 400 clamp(17px, 1.75vw, 23px)/2.2 var(--font-body); color: var(--ink-soft); }
 .hl {
@@ -195,7 +196,7 @@ p { margin: 0; }
   overflow: hidden;
 }
 .about .section-heading { margin: 0; }
-.about__text { max-width: 640px; margin: 20px auto 0; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; }
+.about__text { white-space: pre-line; max-width: 700px; margin: 20px auto 0; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; }
 /* the items that finish the sentence; one shows at a time, in the same voice as the sentence */
 .about__steps { position: relative; display: grid; width: min(720px, 100%); min-height: 2.5em; margin-top: 8px; font: 400 clamp(24px, 2.6vw, 34px)/1.2 var(--font-head); letter-spacing: -.01em; color: var(--ink); }
 .about__step { grid-area: 1 / 1; opacity: 0; transform: translateY(.6em); filter: blur(4px); transition: opacity .5s ease, transform .6s cubic-bezier(.2, .7, .2, 1), filter .5s ease; text-wrap: balance; }
@@ -378,7 +379,7 @@ p { margin: 0; }
 .project__desc { color: var(--ink-soft); max-width: 480px; font-size: 15px; line-height: 1.55; }
 .project__metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 200px));   /* two stats per project */
   gap: 16px;
   margin-top: 18px;
 }
@@ -1486,7 +1487,7 @@ p { margin: 0; }
   font-size: 15px;
   line-height: 1.45;
 }
-.cs-tile img, .cs-tile__icon { width: 48px; height: 48px; border-radius: var(--radius-control); object-fit: contain; }
+.cs-tile img, .cs-tile__icon { width: 60px; height: 60px; border-radius: var(--radius-control); object-fit: contain; }
 
 /* App store links */
 .cs-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
@@ -1681,3 +1682,6 @@ p { margin: 0; }
   .cs-note { font-size: 20px; }
   .case__next { margin-top: 88px; }
 }
+
+/* Case study pages: the same footer as the home page, with plenty of room above it */
+.case-page #contact.footer { margin-top: clamp(120px, 18vh, 200px); border-top: 1px solid var(--line); }

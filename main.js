@@ -56,10 +56,15 @@
 
   /* ---------- Landing: headline, and the three ideas on highlighter strokes ---------- */
   const headline = document.getElementById("landing-headline");
-  C.landing.headline.split(/(\*[^*]+\*)/).forEach((part) => {
-    if (!part) return;
-    if (/^\*.*\*$/.test(part)) headline.appendChild(el("em", null, part.slice(1, -1)));
-    else headline.appendChild(document.createTextNode(part));
+  // each line of the headline (\n in content.js) is its own line on screen
+  C.landing.headline.split("\n").forEach((line, li) => {
+    const row = el("span", "landing__line");
+    line.split(/(\*[^*]+\*)/).forEach((part) => {
+      if (!part) return;
+      if (/^\*.*\*$/.test(part)) row.appendChild(el("em", null, part.slice(1, -1)));
+      else row.appendChild(document.createTextNode(part));
+    });
+    headline.appendChild(row);
   });
   (function pillars() {
     const holder = document.getElementById("landing-pillars"), more = document.getElementById("landing-more");
@@ -221,16 +226,6 @@
     addEventListener("resize", frame);
     frame();
   })();
-
-  /* ---------- Footer: "Designed with (Figma), built with (Claude Code)" ---------- */
-  const LOGOS = {
-    figma: '<svg class="footer__logo" viewBox="0 0 38 57" role="img" aria-label="Figma"><title>Figma</title><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0Z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19Z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"/></svg>',
-    claude: '<svg class="footer__logo" viewBox="-12 -12 24 24" role="img" aria-label="Claude Code"><title>Claude Code</title><g fill="#d97757">' +
-      Array.from({ length: 12 }, (_, i) => `<rect x="-1.1" y="-11" width="2.2" height="${i % 2 ? 8.5 : 10.5}" rx="1.1" transform="rotate(${i * 30})"/>`).join("") +
-      '<circle r="3"/></g></svg>'
-  };
-  const made = document.getElementById("footer-made");
-  if (made && C.footer.madeWith) made.innerHTML = C.footer.madeWith.replace(/[<&]/g, "").replace(/\{(\w+)\}/g, (_, k) => LOGOS[k] || "");
 
   /* ---------- About: polaroids for the depth carousel (positions set by the About motion below) ---------- */
   const pile = document.getElementById("polaroids");

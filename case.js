@@ -109,23 +109,6 @@
   document.getElementById("back-mobile").textContent = "← " + CS.backLabel;
   document.getElementById("sections-label").textContent = CS.sectionsLabel;
 
-  document.getElementById("footer-heading").textContent = C.footer.heading;
-  document.getElementById("footer-heading-italic").textContent = C.footer.headingItalic;
-  document.getElementById("footer-copy").textContent = C.footer.copyright;
-  const email = document.getElementById("footer-email");
-  email.textContent = C.footer.email;
-  email.href = "mailto:" + C.footer.email;
-  const footerLinks = document.getElementById("footer-links");
-  C.footer.links.forEach((l) => {
-    const li = el("li");
-    const a = el("a", null, l.label);
-    a.href = l.url;
-    if (/\.pdf$/i.test(l.url) && window.openAndDownload) window.openAndDownload(a, l.url);   // resume: open and download
-    else if (/^https?:/.test(l.url)) { a.target = "_blank"; a.rel = "noopener"; }
-    li.appendChild(a);
-    footerLinks.appendChild(li);
-  });
-
 
   /* ---------- Header ---------- */
   const title = document.getElementById("title");
