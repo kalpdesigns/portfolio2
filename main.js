@@ -409,7 +409,7 @@
         img.src = logo.logo; img.alt = ""; img.loading = "lazy";
         img.onload = () => {
           const ratio = img.naturalWidth / img.naturalHeight;
-          img.style.height = Math.round(Math.min(28, Math.max(12, Math.sqrt(1100 / ratio))) * (logo.scale || 1)) + "px";
+          img.style.height = Math.round(Math.min(26, Math.max(17, Math.sqrt(1100 / ratio))) * (logo.scale || 1)) + "px";
         };
         item.appendChild(img);
       } else item.textContent = logo.name;
@@ -456,19 +456,25 @@
     stepEls.forEach((s, i) => { s.classList.toggle("is-on", i === n); s.classList.toggle("is-past", i < n); });
     dotEls.forEach((d, i) => d.classList.toggle("is-on", i <= n));
   }
-  const DRIFT = 0.2;            // cards per second when left alone
+  const DRIFT = 0.2;            // cards per second when left alone (phones go a little faster)
+  const phoneSize = matchMedia("(max-width: 820px)");
   const SCRUB = 4;              // cards the carousel travels across the whole section
   let drift = 0, aboutVisible = false, aboutFrame = null, lastTime = 0;
 
   // Depth carousel, laid out like the reference: the middle photo faces you; each step out
   // sits 0.64 of a card further along, 200px deeper and turned another 35° (up to 90°),
   // so the far ones stack up edge-on. The container's perspective scales with the card.
+  // the scroll's push on the carousel is eased, so a quick flick glides instead of jumping
+  let eased = null, cardW = 0, lastPersp = "";
+  const zs = [];
   function renderAbout(p) {
     showStep(Math.min(STEPS.length - 1, Math.floor(p * (STEPS.length + 1)) - 1));
+    if (eased === null) eased = p;
     const n = cards.length;
-    const W = cards[0].offsetWidth, k = W / 450;
-    pile.style.perspective = (550 * k).toFixed(0) + "px";
-    const offset = mainIndex + drift + p * SCRUB;
+    if (!cardW) cardW = cards[0].offsetWidth;
+    const k = cardW / 450, persp = (550 * k).toFixed(0) + "px";
+    if (persp !== lastPersp) { pile.style.perspective = persp; lastPersp = persp; }
+    const offset = mainIndex + drift + eased * SCRUB;
     cards.forEach((card, i) => {
       let d = (i - offset) % n;
       if (d > n / 2) d -= n;
@@ -482,15 +488,19 @@
       const fade = a > n / 2 - 1 ? Math.max(0, n / 2 - a) : 1;
       card.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, 0, ${z.toFixed(1)}px) rotateY(${rot.toFixed(2)}deg)`;
       card.style.opacity = fade.toFixed(3);
-      card.style.zIndex = 1000 - Math.round(a * 10);
+      const z2 = 1000 - Math.round(a * 10);
+      if (zs[i] !== z2) { card.style.zIndex = z2; zs[i] = z2; }   // only re-stack when the order actually changes
     });
   }
 
   function aboutTick(time) {
     const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
-    drift += DRIFT * dt * (motionOK ? 1 : 0.5);   // always drifts; more slowly if the device asks for less motion
-    renderAbout(progress(about));
+    // always drifts (a little faster on phones); more slowly if the device asks for less motion
+    drift += DRIFT * dt * (phoneSize.matches ? 1.8 : 1) * (motionOK ? 1 : 0.5);
+    const p = progress(about);
+    if (eased !== null) eased += (p - eased) * (1 - Math.exp(-dt * 5));
+    renderAbout(p);
     aboutFrame = aboutVisible ? requestAnimationFrame(aboutTick) : null;
   }
   function measureAbout() {}
@@ -542,7 +552,7 @@
 
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { measureAbout(); renderAbout(progress(about)); remeasureProjects(); onWorkScroll(); }, 150);
+    resizeTimer = setTimeout(() => { measureAbout(); cardW = 0; renderAbout(progress(about)); remeasureProjects(); onWorkScroll(); }, 150);
   });
   onWorkScroll();
 

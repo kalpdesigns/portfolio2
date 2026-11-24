@@ -1700,19 +1700,24 @@ p { margin: 0; }
   /* About: more room at the top on a tall phone screen */
   .about__stage { padding-top: clamp(56px, 11vh, 110px); }
 
-  /* Logos: two rows gliding in opposite directions, with room around them */
-  .logos { margin: 72px 0; padding: 56px 0; }
-  .logos__heading { margin-bottom: 28px; }
+  /* About carousel: lighter prints on phones (no film-grain blending), so it glides smoothly */
+  .polaroid.dcard .polaroid__photo::after { display: none; }
+  .polaroid.dcard { box-shadow: 0 1px 2px rgba(40, 32, 20, .16), 0 12px 24px -10px rgba(40, 32, 20, .3); }
+
+  /* Logos: less empty space outside the strip, more room inside it */
+  .logos { margin: 40px 0; padding: 52px 0 56px; }
+  .logos__heading { margin-bottom: 36px; }
   #logo-track { display: none; }
-  .logos__rows { display: grid; gap: 22px; }
-  .logos__track--row { animation-duration: 26s; }
+  .logos__rows { display: grid; gap: 36px; }
+  .logos__track--row { animation-duration: 34s; }
   .logos__track--row.is-reverse { animation-direction: reverse; }
-  .logos__rows .logo { height: 36px; padding: 0 26px; }
+  .logos__rows .logo { height: 32px; padding: 0 36px; }
+  .logos__rows .logo img { max-width: 108px; max-height: 24px; object-fit: contain; }
 
   /* Featured: each project is its own card, well apart from the next; the whole card opens the case study */
   .work__layout { margin-top: 36px; }
   .project {
-    margin-bottom: 28px;
+    margin-bottom: 64px;
     padding: 14px 14px 22px;
     border-radius: 16px;
     background: #fff;
