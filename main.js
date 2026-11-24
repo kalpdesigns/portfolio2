@@ -80,12 +80,15 @@
       return b;
     });
     // "Context first, System underneath & Craft on top."
+    // each idea travels with the punctuation after it, so on phones each sits on its own line
     marks.forEach((m, i) => {
-      holder.appendChild(m);
-      if (i < marks.length - 2) holder.appendChild(el("span", "hl-sep", ","));
-      else if (i === marks.length - 2) holder.appendChild(el("span", "hl-sep hl-sep--and", "&"));
+      const group = el("span", "hl-group");
+      group.appendChild(m);
+      if (i < marks.length - 2) group.appendChild(el("span", "hl-sep hl-sep--comma", ","));
+      else if (i === marks.length - 2) group.appendChild(el("span", "hl-sep hl-sep--and", "&"));
+      else group.appendChild(el("span", "hl-sep hl-sep--end", "."));
+      holder.appendChild(group);
     });
-    holder.appendChild(el("span", "hl-sep hl-sep--end", "."));
     const show = (i) => {
       marks.forEach((m, j) => m.classList.toggle("is-on", j === i));
       if (i >= 0) more.textContent = list[i].more;
@@ -110,7 +113,9 @@
     if (!cv) return;
     const g = cv.getContext("2d");
     const sec = document.getElementById("home");
-    const still = !document.documentElement.classList.contains("motion-ok");
+    // a slow, gentle drift; if the device asks for less motion it just drifts more slowly
+    const calm = !document.documentElement.classList.contains("motion-ok");
+    const still = false, SPEED = calm ? 0.5 : 1;
     const CELL = 10;
     const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
     const COLS = ["#e3f1fd", "#a9d6fb", "#5fb4fb", "#209dfc"];
@@ -168,7 +173,7 @@
       if (!onScreen || document.hidden) return;
       const scrolled = scrollY !== lastScroll;
       if (!scrolled && (still || now - last < 70)) return;   // about 14 frames a second is plenty for drifting clouds
-      if (!scrolled || now - last >= 70) { if (!still) t += 0.035; }
+      if (!scrolled || now - last >= 70) t += 0.035 * SPEED;
       last = now; lastScroll = scrollY;
       draw();
     })(0);
@@ -290,7 +295,7 @@
     // Open project: clicking its text opens the case study. Closed project: opens it in the list.
     item.addEventListener("click", (e) => {
       if (e.target.closest("a")) return;
-      if (i === activeIndex) location.href = caseUrl(project);
+      if (i === activeIndex || matchMedia("(max-width: 820px)").matches) location.href = caseUrl(project);
       else if (e.target.closest(".project__toggle")) goToProject(i);
     });
   });
@@ -391,6 +396,28 @@
       track.appendChild(item);
     });
   });
+  // Phones: the logos split into two rows that glide in opposite directions
+  const rows = el("div", "logos__rows");
+  rows.setAttribute("aria-hidden", "true");
+  [0, 1].forEach((r) => {
+    const row = el("div", "logos__track logos__track--row" + (r ? " is-reverse" : ""));
+    const mine = C.logos.items.filter((_, i) => i % 2 === r);
+    [0, 1, 2, 3].forEach(() => mine.forEach((logo) => {
+      const item = el("div", "logo");
+      if (logo.logo) {
+        const img = document.createElement("img");
+        img.src = logo.logo; img.alt = ""; img.loading = "lazy";
+        img.onload = () => {
+          const ratio = img.naturalWidth / img.naturalHeight;
+          img.style.height = Math.round(Math.min(28, Math.max(12, Math.sqrt(1100 / ratio))) * (logo.scale || 1)) + "px";
+        };
+        item.appendChild(img);
+      } else item.textContent = logo.name;
+      row.appendChild(item);
+    }));
+    rows.appendChild(row);
+  });
+  track.parentNode.appendChild(rows);
 
   let resizeTimer;
   document.fonts && document.fonts.ready.then(() => { remeasureProjects(); });
@@ -462,7 +489,7 @@
   function aboutTick(time) {
     const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
-    if (motionOK) drift += DRIFT * dt;
+    drift += DRIFT * dt * (motionOK ? 1 : 0.5);   // always drifts; more slowly if the device asks for less motion
     renderAbout(progress(about));
     aboutFrame = aboutVisible ? requestAnimationFrame(aboutTick) : null;
   }

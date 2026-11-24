@@ -1203,8 +1203,7 @@ p { margin: 0; }
 /* Respect people who ask their device for less motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .logos__track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
-  .logos__track [aria-hidden="true"] { display: none; }
+  .logos__track { animation-duration: 56s; }   /* still glides, just more slowly */
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
 
@@ -1685,3 +1684,54 @@ p { margin: 0; }
 
 /* Case study pages: the same footer as the home page, with plenty of room above it */
 .case-page #contact.footer { margin-top: clamp(120px, 18vh, 200px); border-top: 1px solid var(--line); }
+
+/* ==========================================================================
+   Phones (820px and narrower)
+   ========================================================================== */
+.logos__rows { display: none; }
+.footer__simple { display: none; }
+@media (max-width: 820px) {
+  /* Landing: one idea per line — "Context first / System underneath & / Craft on top" */
+  .landing__pillars { line-height: 1.9; }
+  .hl-group { display: block; }
+  .hl-sep--comma, .hl-sep--end { display: none; }
+  .hl-sep--and { margin: 0 0 0 .5em; }
+
+  /* About: more room at the top on a tall phone screen */
+  .about__stage { padding-top: clamp(56px, 11vh, 110px); }
+
+  /* Logos: two rows gliding in opposite directions, with room around them */
+  .logos { margin: 72px 0; padding: 56px 0; }
+  .logos__heading { margin-bottom: 28px; }
+  #logo-track { display: none; }
+  .logos__rows { display: grid; gap: 22px; }
+  .logos__track--row { animation-duration: 26s; }
+  .logos__track--row.is-reverse { animation-direction: reverse; }
+  .logos__rows .logo { height: 36px; padding: 0 26px; }
+
+  /* Featured: each project is its own card, well apart from the next; the whole card opens the case study */
+  .work__layout { margin-top: 36px; }
+  .project {
+    margin-bottom: 28px;
+    padding: 14px 14px 22px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(28, 28, 23, .06), 0 14px 32px -20px rgba(28, 28, 23, .35);
+    cursor: pointer;
+  }
+  .project:last-child { margin-bottom: 0; }
+  .project__toggle { padding: 4px 4px 0; }
+  .project__title { line-height: 1.22; }
+  .project__tags-wrap { padding: 0 4px; }
+  .project__details-inner { padding: 0 4px; }
+  .project__mobile-img { margin: 14px 0 18px; border-radius: 10px; }
+  .project__link { display: none; }
+
+  /* Footer: a simple version for now (no typewriter) */
+  #contact .typewriter { display: none; }
+  .footer__simple { display: grid; justify-items: center; gap: 18px; margin-top: 28px; }
+  .footer__simple-mail { font: 400 clamp(20px, 6vw, 26px)/1.2 var(--font-head); color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; word-break: break-all; }
+  .footer__simple-links { display: flex; gap: 10px; }
+  .footer__simple-links a { padding: 10px 16px; border-radius: 10px; background: rgba(228, 227, 221, .66); color: var(--ink); font: 500 14px/1 var(--font-body); text-decoration: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 0 0 1px rgba(28, 28, 23, .08); }
+  #contact.footer { padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+}
