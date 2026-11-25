@@ -21,24 +21,6 @@
       Array.from({ length: 12 }, (_, i) => `<rect x="-1.1" y="-11" width="2.2" height="${i % 2 ? 8.5 : 10.5}" rx="1.1" transform="rotate(${i * 30})"/>`).join("") +
       '<circle r="3"/></g></svg>'
   };
-  // Phones get a simple footer for now (the typewriter is hidden there): email, LinkedIn, Resume
-  const simple = document.createElement("div");
-  simple.className = "footer__simple";
-  const mail = document.createElement("a");
-  mail.className = "footer__simple-mail"; mail.href = "mailto:" + C.footer.email; mail.textContent = C.footer.email;
-  const links = document.createElement("div");
-  links.className = "footer__simple-links";
-  (C.footer.links || []).forEach((l) => {
-    const a = document.createElement("a");
-    a.textContent = l.label; a.href = l.url;
-    if (/\.pdf$/i.test(l.url) && window.openAndDownload) window.openAndDownload(a, l.url);
-    else { a.target = "_blank"; a.rel = "noopener"; }
-    links.appendChild(a);
-  });
-  simple.append(mail, links);
-  const tw = document.getElementById("typewriter");
-  if (tw) tw.after(simple);
-
   const made = document.getElementById("footer-made");
   if (made && C.footer.madeWith) made.innerHTML = C.footer.madeWith.replace(/[<&]/g, "").replace(/\{(\w+)\}/g, (_, k) => LOGOS[k] || "");
 

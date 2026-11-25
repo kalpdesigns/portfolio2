@@ -525,6 +525,6 @@ window.CONTENT = {
     // These two sit on either side of the bottom bar at the very end of the page.
     // {figma} and {claude} are replaced by the Figma and Claude Code logos.
     copyright: "© 2026 Kalpesh Bhavsar",
-    madeWith: "Designed with {figma}, built with {claude}"
+    madeWith: "Designed with {figma} built with {claude}"
   }
 };

@@ -1732,11 +1732,121 @@ p { margin: 0; }
   .project__mobile-img { margin: 14px 0 18px; border-radius: 10px; }
   .project__link { display: none; }
 
-  /* Footer: a simple version for now (no typewriter) */
+  /* Footer: the phone typewriter (mtw.js) takes the place of the big one */
   #contact .typewriter { display: none; }
-  .footer__simple { display: grid; justify-items: center; gap: 18px; margin-top: 28px; }
-  .footer__simple-mail { font: 400 clamp(20px, 6vw, 26px)/1.2 var(--font-head); color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; word-break: break-all; }
-  .footer__simple-links { display: flex; gap: 10px; }
-  .footer__simple-links a { padding: 10px 16px; border-radius: 10px; background: rgba(228, 227, 221, .66); color: var(--ink); font: 500 14px/1 var(--font-body); text-decoration: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 0 0 1px rgba(28, 28, 23, .08); }
-  #contact.footer { padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ==========================================================================
+   Phone footer: a sheet of paper coming out of the typewriter's roller (mtw.js).
+   Same paper, ivory enamel and black rubber roller as the desktop machine.
+   ========================================================================== */
+.mtw, .mtw__stage { display: none; }
+@media (max-width: 820px) {
+  #contact.footer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 72px var(--gutter) 0;
+  }
+  #contact .footer__heading { margin: auto 0; padding: 24px 0; }
+  /* the credits sit quietly under the heading */
+  #contact .footer__credits { display: none; }
+  .mtw__credits { flex: 1; display: flex; justify-content: center; align-items: center; gap: 10px; padding: 0 12px; white-space: nowrap; }
+  .mtw__credits p { margin: 0; font-size: 10.5px; color: var(--ink-muted); }
+  .mtw__credits p + p::before { content: "·"; margin-right: 10px; }
+  .mtw__credits .footer__logo { height: 11px; }
+  .mtw { display: block; order: 3; margin: 0 calc(-1 * var(--gutter)); }
+  .mtw__status { min-height: 1.4em; margin: 0 var(--gutter) 34px; text-align: center; font-size: 13px; color: var(--ink-muted); }
+  .mtw__machine { position: relative; }
+
+  /* the sheet: the same paper, grain and shading as the desktop typewriter */
+  .mtw__paper {
+    position: relative;
+    z-index: 1;
+    margin: 0 14px -14px;
+    padding: 18px 16px 22px;
+    border-radius: 0;   /* square corners, a plain sheet, exactly like the desktop paper */
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 78%, rgba(40, 34, 22, .1) 92%, rgba(20, 18, 12, .22) 100%),
+      linear-gradient(90deg, rgba(70, 58, 36, .05), rgba(70, 58, 36, 0) 7%, rgba(70, 58, 36, 0) 93%, rgba(70, 58, 36, .07)),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .09' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+      #fbf8f1;
+    box-shadow: 0 0 0 .5px rgba(60, 50, 30, .14), 6px -2px 18px rgba(28, 28, 23, .1), 2px 0 4px rgba(28, 28, 23, .06);
+    font: 14px/1.65 "Courier Prime", "Courier New", ui-monospace, monospace;
+    color: #24231f;
+    text-align: left;
+    cursor: text;
+    /* To/From stay at the top of the sheet; once the sheet is as tall as it can be, only the typed part scrolls */
+    display: flex;
+    flex-direction: column;
+    max-height: var(--paper-max, 52vh);
+    overflow: hidden;
+  }
+  .mtw__memo { flex: none; }
+  .mtw__body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .mtw__body::-webkit-scrollbar { display: none; }
+  /* while typing: the page colour fills the visible area with the footer heading at its top */
+  .mtw__stage { position: fixed; left: 0; right: 0; z-index: 399; display: none; padding: 28px var(--gutter) 0; background: var(--bg); text-align: center; }
+  .mtw__stage.is-on { display: block; }
+  .mtw__stage .footer__heading { margin: 0; }
+  /* while typing, the machine is pinned just above the keyboard */
+  .mtw.is-docked .mtw__machine { position: fixed; left: 0; right: 0; z-index: 400; }
+  .mtw.is-docked .mtw__base { display: none; }
+  .mtw__memo { padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px dashed rgba(36, 35, 31, .22); }
+  .mtw__row { display: flex; align-items: center; gap: .6ch; margin: 0; white-space: nowrap; min-height: 32px; }
+  .mtw__k { flex: none; width: 6ch; color: #6d6a61; letter-spacing: .04em; text-transform: uppercase; font-size: .82em; }
+  .mtw__email { flex: 1; min-width: 0; padding: 4px 0 2px; border: 0; border-bottom: 1px solid rgba(36, 35, 31, .3); border-radius: 0; background: transparent; font: inherit; font-size: 14px; color: #24231f; outline: none; caret-color: var(--accent); }
+  .mtw__email::placeholder { color: #aaa597; }
+  .mtw__email:focus { border-bottom-color: var(--accent); }
+  /* Send: a small round icon button at the end of the From line, like a messaging app's */
+  .mtw__send-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .mtw__send { flex: none; display: inline-grid; place-items: center; width: 36px; height: 36px; margin-left: 10px; padding: 0; border: 0; border-radius: 10px; background: var(--accent); color: #fff; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 3px 8px -3px rgba(28, 28, 23, .45); transition: transform .12s ease; }
+  .mtw__send:active { transform: scale(.92); }
+  .mtw__send .mtw__again { display: none; }
+  .mtw.is-done .mtw__send .mtw__plane { display: none; }
+  .mtw.is-done .mtw__send .mtw__again { display: block; }
+  .mtw__send svg { width: 18px; height: 18px; margin: 1px 2px 0 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+  .mtw__send:disabled { opacity: .6; }
+  .mtw__greet { margin: 0 0 8px; }
+  /* the note is typed in the same size as "Dear Kalpesh," (the page doesn't zoom in when you tap: see the viewport tag) */
+  .mtw__text { display: block; width: 100%; min-height: 1.65em; padding: 0; border: 0; background: transparent; resize: none; overflow: hidden; flex: none; font: inherit; font-size: 14px; line-height: 1.65; color: #24231f; outline: none; caret-color: var(--accent); text-shadow: 0 0 .5px rgba(36, 35, 31, .45); }
+  .mtw__text::placeholder { color: #aaa597; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mtw__mirror { position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: none; overflow-wrap: break-word; }
+
+  /* the roller the sheet comes out of, and the carriage pointer that rides along it */
+  .mtw__bar { position: relative; z-index: 2; height: 34px; }
+  .mtw__rod { position: absolute; left: 12px; right: 12px; top: 10px; height: 14px; border-radius: 7px; background: linear-gradient(180deg, #6b6b66 0%, #2a2a28 35%, #121211 60%, #34342f 100%); box-shadow: 0 4px 8px -2px rgba(0, 0, 0, .4); }
+  .mtw__cap { position: absolute; top: 3px; width: 14px; height: 28px; border-radius: 5px; background: linear-gradient(90deg, #2c2c29, #55554f 45%, #1b1b19); box-shadow: 0 3px 6px -2px rgba(0, 0, 0, .45); }
+  .mtw__cap--l { left: 2px; }
+  .mtw__cap--r { right: 2px; }
+  .mtw__pointer { position: absolute; left: 0; top: 2px; width: 70px; margin-left: -35px; transition: transform .16s cubic-bezier(.3, 1.4, .5, 1); }
+  .mtw__unit { position: relative; display: flex; align-items: center; justify-content: center; gap: 6px; height: 30px; border-radius: 15px; background: linear-gradient(180deg, #faf5ea, #ece3d0 55%, #d9cdb1); box-shadow: inset 0 1px 0 #fff, inset 0 -2px 3px rgba(80, 64, 30, .18), 0 6px 10px -4px rgba(0, 0, 0, .35); }
+  .mtw__unit i { width: 6px; height: 6px; border-radius: 50%; box-shadow: inset 0 -1px 1px rgba(0, 0, 0, .25); }
+  .mtw__unit i:nth-child(1) { background: #4caf73; }
+  .mtw__unit i:nth-child(2) { background: #2a2a27; }
+  .mtw__unit i:nth-child(3) { background: #d65a4f; }
+  /* the little chrome type guide that taps the paper */
+  .mtw__guide { position: absolute; left: 50%; top: -16px; width: 16px; height: 17px; margin-left: -8px; transform-origin: 50% 100%;
+    background: linear-gradient(90deg, #8d9194, #eef0f1 45%, #9a9ea1) center bottom / 4px 13px no-repeat, linear-gradient(180deg, #f4f5f6, #9da1a4) center top / 16px 4px no-repeat; }
+  .mtw__pointer.is-striking .mtw__guide { animation: mtw-strike .14s ease; }
+  @keyframes mtw-strike { 40% { transform: translateY(-4px); } }
+  /* the ivory body the bottom bar rests on */
+  /* the ivory strip under the roller: the credits sit centred in the space above the bottom bar */
+  .mtw__base { display: flex; flex-direction: column; padding: 8px 0 calc(64px + env(safe-area-inset-bottom, 0px)); position: relative; z-index: 1; height: calc(112px + env(safe-area-inset-bottom, 0px)); margin-top: -8px; background: linear-gradient(180deg, #ece4d1, #e3d9c1); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7); }
+
+  /* while the keyboard is up, the bottom bar steps out of the way */
+  .is-keyboard .nav { opacity: 0; transform: translate(-50%, 140%); pointer-events: none; }
+  .nav { transition: opacity .2s ease, transform .3s cubic-bezier(.3, .7, .3, 1); }
+}
+
+/* Phones: 44px buttons (a 54px-tall bar) with 23px icons, sitting a little lower.
+   LinkedIn stays tucked away (zero width) until the footer, so the bar hugs its 4 buttons and stays centred. */
+@media (max-width: 820px) {
+  .nav { bottom: calc(4px + env(safe-area-inset-bottom, 0px)); padding: 5px; gap: 6px; }
+  .nav__item:not(.nav__item--extra), .nav.is-expanded .nav__item--extra { height: 44px; min-width: 44px; padding: 0 10.5px; }
+  .nav:not(.is-expanded) .nav__item--extra { min-width: 0; margin-left: -6px; }   /* takes no room, not even its gap */
+  .nav__item svg, .nav__ico { width: 23px; height: 23px; }
+  .nav .nav__pill { height: 44px; }
 }
